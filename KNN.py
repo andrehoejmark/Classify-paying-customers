@@ -12,7 +12,7 @@ def euclidean_dist(x1, x2):
 
 class KNN:
 
-    def __init__(self, k=2):
+    def __init__(self, k=6):
         self.start_time = 0
         self.end_time = 0
         self.k = k
@@ -32,38 +32,17 @@ class KNN:
 
     def _predict(self, x):
         #compute euclidean distances
-        dists = [euclidean_dist(x, x_train) for x_train in self.X_train]
+        dists = []
+        for x_train n self.X_train:
+            dists.append(euclidean_dist(x, x_train))
 
-        # get k-nearest neighbors
+        # compute nearest neighbors
         k_indices = np.argsort(dists)[0:self.k]
         k_nearest_labels = [self.y_train[i] for i in k_indices]
 
-        # majority vote of most common class 
         most_common = Counter(k_nearest_labels).most_common(1)[0][0]
         return most_common
 
-
-
-'''
-iris = datasets.load_iris()
-X, y = iris.data, iris.target
-
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.55, random_state=1)
-print(X_train)
-
-model = KNN(k=3)
-model.fit(X_train, y_train)
-y_predicted = model.predict(X_test)
-
-
-
-acc = np.sum(y_predicted==y_test)/len(y_predicted)
-
-print(acc)
-
-
-'''
 
 
 
